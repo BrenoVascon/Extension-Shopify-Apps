@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Shopify App Creator",
+  "version": "0.4.0",
+  "description": "Create Shopify apps and get their Admin API token without copy-paste, using the same APIs as the Shopify CLI.",
+  "action": {
+    "default_title": "Shopify App Creator",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "permissions": ["identity", "storage"],
+  "host_permissions": [
+    "https://accounts.shopify.com/*",
+    "https://app.shopify.com/*",
+    "https://destinations.shopifysvc.com/*",
+    "https://*.myshopify.com/*",
+    "http://localhost/*",
+    "http://127.0.0.1/*"
+  ]
+}

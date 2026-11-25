@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Shopify App Creator</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <svg class="icon-sprite" aria-hidden="true">
+    <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5"/></symbol>
+    <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
+    <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></symbol>
+    <symbol id="i-save" viewBox="0 0 24 24"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></symbol>
+    <symbol id="i-loader" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></symbol>
+  </svg>
+
+  <header class="header">
+    <svg class="brand-icon"><use href="#i-bag"/></svg>
+    <span class="header-title">App Creator</span>
+    <span id="session-pill" class="session-pill" data-state="loading">
+      <span class="session-dot"></span>
+      <span id="session-text"></span>
+    </span>
+    <div class="lang-switch" role="group" data-i18n-title="language">
+      <button type="button" data-lang="pt">PT</button>
+      <button type="button" data-lang="en">EN</button>
+    </div>
+    <button id="logout-button" class="icon-button" type="button" data-i18n-title="logout" hidden>
+      <svg class="icon"><use href="#i-logout"/></svg>
+    </button>
+  </header>
+
+  <!-- Login -->
+  <section id="login-view" class="view" hidden>
+    <div id="login-banner" class="banner" data-tone="neutral">
+      <span class="banner-icon"><svg class="icon"><use href="#i-bag"/></svg></span>
+      <div class="banner-body">
+        <strong id="login-title"></strong>
+        <span id="login-text"></span>
+      </div>
+    </div>
+
+    <div id="login-code-box" class="code-box" hidden>
+      <span class="code-box-label" data-i18n="login.code"></span>
+      <code id="login-code" class="login-code"></code>
+      <a class="button button-ghost button-small" href="https://accounts.shopify.com/activate" target="_blank" rel="noopener">
+        <svg class="icon"><use href="#i-external"/></svg><span data-i18n="login.enterCode"></span>
+      </a>
+    </div>
+
+    <button id="login-button" class="button button-primary button-block" type="button">
+      <svg class="icon"><use href="#i-bag"/></svg><span></span>
+    </button>
+    <p class="hint" data-i18n="login.hint"></p>
+  </section>
+
+  <!-- Formulários -->
+  <section id="main-view" class="view" hidden>
+    <div id="load-error" class="banner banner-compact" data-tone="error" hidden>
+      <span class="banner-icon"><svg class="icon"><use href="#i-alert"/></svg></span>
+      <div class="banner-body"><span id="load-error-text"></span></div>
+      <button id="retry-button" class="icon-button" type="button" data-i18n-title="retry">
+        <svg class="icon"><use href="#i-refresh"/></svg>
+      </button>
+    </div>
+
+    <label class="field">
+      <span class="field-head"><span class="field-label" data-i18n="field.organization"></span></span>
+      <select id="organization-select" class="control"></select>
+    </label>
+
+    <div class="tabs" role="tablist">
+      <button class="tab" type="button" role="tab" data-tab="token">
+        <svg class="icon"><use href="#i-key"/></svg><span data-i18n="tab.token"></span>
+      </button>
+      <button class="tab" type="button" role="tab" data-tab="create">
+        <svg class="icon"><use href="#i-plus"/></svg><span data-i18n="tab.create"></span>
+      </button>
+      <button class="tab" type="button" role="tab" data-tab="edit">
+        <svg class="icon"><use href="#i-pencil"/></svg><span data-i18n="tab.edit"></span>
+      </button>
+    </div>
+
+    <!-- App existente (gerar token / editar) -->
+    <label class="field" data-panels="token edit">
+      <span class="field-head">
+        <span class="field-label" data-i18n="field.app"></span>
+        <span id="app-pill" class="pill"></span>
+      </span>
+      <select id="app-select" class="control" disabled></select>
+    </label>
+    <p class="hint hint-tight" data-panels="token" data-i18n="token.hint"></p>
+
+    <div id="edit-status" class="banner banner-compact banner-spaced" data-tone="neutral" data-panels="edit" hidden>
+      <span class="banner-icon"><svg class="icon"><use href="#i-loader"/></svg></span>
+      <div class="banner-body"><span id="edit-status-text"></span></div>
+    </div>
+
+    <!-- Nome e escopos (criar / editar) -->
+    <div id="app-fields" data-panels="create edit">
+      <label class="field">
+        <span class="field-head"><span class="field-label" data-i18n="field.appName"></span></span>
+        <input id="app-name-input" class="control" type="text" data-i18n-placeholder="placeholder.appName" autocomplete="off">
+      </label>
+
+      <label class="field" data-panels="edit">
+        <span class="field-head"><span class="field-label" data-i18n="field.appUrl"></span></span>
+        <input id="app-url-input" class="control" type="url" placeholder="https://" autocomplete="off" spellcheck="false">
+      </label>
+
+      <div class="field">
+        <span class="field-head">
+          <span class="field-label" data-i18n="field.scopes"></span>
+          <span id="scopes-pill" class="pill"></span>
+        </span>
+        <button id="open-scopes-button" class="picker-button" type="button">
+          <span id="scopes-preview" class="picker-preview"></span>
+          <svg class="icon"><use href="#i-chevron"/></svg>
+        </button>
+      </div>
+
+      <label class="field" data-panels="edit">
+        <span class="field-head">
+          <span class="field-label" data-i18n="field.redirects"></span>
+          <span class="field-note" data-i18n="edit.redirectsHint"></span>
+        </span>
+        <textarea id="redirects-input" class="control control-area" rows="2" data-i18n-placeholder="placeholder.redirects" spellcheck="false"></textarea>
+      </label>
+    </div>
+    <p class="hint hint-tight" data-panels="edit" data-i18n="edit.hint"></p>
+
+    <!-- Loja (gerar token / criar) -->
+    <label class="field" data-panels="token create">
+      <span class="field-head">
+        <span class="field-label" data-i18n="field.store"></span>
+        <span id="store-pill" class="pill"></span>
+      </span>
+      <div class="combo">
+        <input id="store-input" class="control" type="text" data-i18n-placeholder="placeholder.store" autocomplete="off" spellcheck="false"
+          role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="store-list">
+        <svg class="icon combo-chevron"><use href="#i-chevron"/></svg>
+      </div>
+    </label>
+    <ul id="store-list" class="combo-list" role="listbox" hidden></ul>
+
+    <button id="run-button" class="button button-primary button-block" type="button" disabled></button>
+  </section>
+
+  <!-- Escopos -->
+  <section id="scopes-view" class="view view-full" hidden>
+    <div class="subheader">
+      <button id="close-scopes-button" class="icon-button" type="button" data-i18n-title="back">
+        <svg class="icon"><use href="#i-back"/></svg>
+      </button>
+      <span class="subheader-title" data-i18n="scopes.title"></span>
+      <button id="clear-scopes-button" class="link-button" type="button" data-i18n="scopes.clear"></button>
+    </div>
+
+    <div id="selected-scopes" class="chip-box"></div>
+
+    <div class="presets">
+      <span class="field-label" data-i18n="scopes.presets"></span>
+      <div id="scope-presets" class="preset-row"></div>
+    </div>
+
+    <div class="search">
+      <svg class="icon"><use href="#i-search"/></svg>
+      <input id="scope-search-input" type="search" data-i18n-placeholder="scopes.search" autocomplete="off">
+    </div>
+
+    <nav id="scope-topic-nav" class="topic-nav"></nav>
+
+    <div class="scope-scroll">
+      <div id="scope-group-list" class="scope-groups"></div>
+      <label class="field">
+        <span class="field-head"><span class="field-label" data-i18n="scopes.extra"></span></span>
+        <input id="extra-scopes-input" class="control" type="text" data-i18n-placeholder="scopes.extraPlaceholder">
+      </label>
+    </div>
+
+    <div class="bottom-bar">
+      <span id="scope-count-output" class="bottom-bar-text"></span>
+      <button id="done-scopes-button" class="button button-primary button-small" type="button" data-i18n="scopes.done"></button>
+    </div>
+  </section>
+
+  <!-- Execução e resultado -->
+  <section id="job-view" class="view" hidden>
+    <div class="job-head">
+      <span id="job-title" class="job-title"></span>
+      <span id="job-shop" class="job-shop"></span>
+    </div>
+
+    <ol id="job-steps" class="steps"></ol>
+
+    <div id="job-success" class="banner banner-compact" data-tone="success" hidden>
+      <span class="banner-icon"><svg class="icon"><use href="#i-check"/></svg></span>
+      <div class="banner-body">
+        <strong id="job-success-title"></strong>
+        <span id="job-success-text"></span>
+      </div>
+    </div>
+
+    <div id="job-error" class="banner banner-compact" data-tone="error" role="alert" hidden>
+      <span class="banner-icon"><svg class="icon"><use href="#i-alert"/></svg></span>
+      <div class="banner-body">
+        <strong data-i18n="job.errorTitle"></strong>
+        <span id="job-error-text"></span>
+      </div>
+    </div>
+
+    <div id="job-result" hidden>
+      <span class="field-head">
+        <span class="field-label" data-i18n="job.token"></span>
+        <span class="pill" data-tone="success" data-i18n="job.tokenKind"></span>
+      </span>
+      <div class="token-card">
+        <code id="token-output"></code>
+        <button id="copy-token-button" class="button button-ghost button-small" type="button">
+          <svg class="icon"><use href="#i-copy"/></svg><span data-i18n="job.copy"></span>
+        </button>
+      </div>
+
+      <dl id="shop-facts" class="facts" hidden>
+        <div><dt data-i18n="fact.store"></dt><dd data-fact="name"></dd></div>
+        <div><dt data-i18n="fact.plan"></dt><dd data-fact="plan"></dd></div>
+        <div><dt data-i18n="fact.currency"></dt><dd data-fact="currencyCode"></dd></div>
+        <div><dt data-i18n="fact.api"></dt><dd data-fact="apiVersion"></dd></div>
+      </dl>
+
+      <details class="granted">
+        <summary><span data-i18n="job.granted"></span> <span id="granted-count" class="pill"></span></summary>
+        <div id="granted-scopes-output" class="chip-box chip-box-plain"></div>
+      </details>
+
+      <p class="hint hint-tight" data-i18n-html="job.tokenHint"></p>
+    </div>
+
+    <p id="job-waiting-hint" class="hint" data-i18n="job.waiting" hidden></p>
+
+    <button id="new-job-button" class="button button-ghost button-block" type="button" hidden>
+      <svg class="icon"><use href="#i-back"/></svg><span data-i18n="back"></span>
+    </button>
+  </section>
+
+  <footer class="footer">
+    <a href="https://dev.shopify.com/dashboard" target="_blank" rel="noopener"><svg class="icon"><use href="#i-external"/></svg>Dev Dashboard</a>
+    <a href="https://shopify.dev/docs/api/usage/access-scopes" target="_blank" rel="noopener"><svg class="icon"><use href="#i-external"/></svg><span data-i18n="footer.docs"></span></a>
+  </footer>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

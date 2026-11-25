@@ -1,0 +1,9 @@
+# Versão antiga em página (substituída pelo popup)
+app.html
+app.css
+app.js
+
+.playwright-mcp/
+*.zip
+.DS_Store
+Thumbs.db
